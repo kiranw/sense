@@ -165,7 +165,7 @@
 				console.log(maxEmotion)
 				state = 0;
 				$(".emotionvalue").text(maxEmotion);
-				$("#emoji").src("img/" + maxEmotion + ".png")
+				$("#emoji").src = "img/" + maxEmotion + ".png";
 			}
 		}
 		
