@@ -48,8 +48,10 @@ html, body {
 	display: none;
 }
 
-h2 {
+h1 {
 	font-weight : 400;
+	font-size: 1.5em;
+	font-style: italic;
 }
 
 .btn {
@@ -83,10 +85,6 @@ h2 {
 	width : 400px;
 }
 
-#icon1, #icon2, #icon3, #icon4, #icon5, #icon6 {
-	visibility : hidden;
-}
-
 /* d3 */
 .bar {
 	fill : steelblue;
@@ -96,23 +94,13 @@ h2 {
 
 .logo {
 	width:200px;
-	height:auto;
-	margin-left:42% !important;
-	margin-top: 5% !important;
+	height: auto;
+	margin: 0 auto;
+	display: block;
+    margin-top: 8%;
+    margin-bottom: 8%;
 }
 
-a{
-color: #7f47db !important;
-text-decoration: none;
-}
-
-.navigation-buttons{
-	font-family:"Roboto";
-	text-align: center;
-	font-size: 1.5em;
-	color: #7f47db !important;
-	background-color: #fdfdfd;
-}
 
 .button2{
 	width:150px;
@@ -133,4 +121,41 @@ text-decoration: none;
 .emotionvalue {
 	font-size:1.5em;	
 	text-decoration:underline;
+}
+
+#leftpanel {
+	width:70%;
+	height: 100%;
+	position: fixed;
+	font-family: "Libre Baskerville", serif;
+	padding: 5% 4% 0% 4%;
+}
+
+.title {
+	font-size: 4em;
+	font-style: italic;
+	margin-bottom: 40px;
+}
+
+.contentText {
+    font-size: 1.3em;
+}
+
+#rightpanel {
+	width:30%;
+	height: 100%;
+	position: fixed;
+	overflow: hidden;
+	right: 0px;
+	background-color: #f9f9f9;
+	font-family: "Roboto", sans-serif;;
+/*    border-left: 2px solid #ededed;*/
+}
+
+#emoji {
+	width:150px;
+	margin: auto;
+	margin-top:10px;
+	margin-bottom:10px;
+	display: block;
 }

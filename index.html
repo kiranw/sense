@@ -3,24 +3,25 @@
 <head>
 	<meta charset='utf-8'/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
-	<title>Elle | Integrated Emotion Detection </title>
+	<title>Sense | Integrated Emotion Detection </title>
 	<link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'/>
 	<link rel='stylesheet' href='css/style.css'/>
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Libre+Baskerville:400,400i,700" rel="stylesheet">
 	
 
-		<script>
-			// getUserMedia only works over https in Chrome 47+, so we redirect to https. Also notify user if running from file.
-			if (window.location.protocol == "file:") {
-				alert("You seem to be running this example directly from a file. Note that these examples only work when served from a server or localhost due to canvas cross-domain restrictions.");
-			} else if (window.location.hostname !== "localhost" && window.location.protocol !== "https:"){
-				window.location.protocol = "https";
-			}
-		</script>
+	<script>
+		// getUserMedia only works over https in Chrome 47+, so we redirect to https. Also notify user if running from file.
+		if (window.location.protocol == "file:") {
+			alert("You seem to be running this example directly from a file. Note that these examples only work when served from a server or localhost due to canvas cross-domain restrictions.");
+		} else if (window.location.hostname !== "localhost" && window.location.protocol !== "https:"){
+			window.location.protocol = "https";
+		}
+	</script>
 		
 </head>
 <body>
@@ -34,37 +35,49 @@
 	<script src="js/emotionmodel.js"></script>
 
 
-<img src="img/e-02.svg" class="logo">
+<div id="leftpanel">
+	<div class="title">Sample Title</div>
+	<div class="contentText">
+		<p>Lorem Khaled Ipsum is a major key to success. Look at the sunset, life is amazing, life is beautiful, life is what you make it. Cloth talk. Another one. Let me be clear, you have to make it through the jungle to make it to paradise, that’s the key, Lion! They don’t want us to eat. Watch your back, but more importantly when you get out the shower, dry your back, it’s a cold world out there. I told you all this before, when you have a swimming pool, do not use chlorine, use salt water, the healing, salt water is the healing. How’s business? Boomin.</p>
 
-<div class="row navigation-buttons">
-	<div class="col-md-6"> <a>Manage Data</a>
-	</div>
-	<div class="col-md-6"><a> Manage Recommendations</a>
+		<p>Let’s see what Chef Dee got that they don’t want us to eat. The first of the month is coming, we have to get money, we have no choice. It cost money to eat and they don’t want you to eat. The key to success is to keep your head above the water, never give up. Stay focused. They will try to close the door on you, just open it. Eliptical talk. The other day the grass was brown, now it’s green because I ain’t give up. Never surrender.</p>
 	</div>
 </div>
-<br><Br><br>
+
+<div id="rightpanel">
+
+	<img src="img/logo.png" class="logo" />
+
+	<div id="content">
+		<div id="controls">
+			<input class="btn" type="button" value="wait, loading video" disabled="disabled" onclick="startVideo()" id="startbutton"></input>
+		</div>
+		<br>
+		<img id="emoji" src="img/happy.png" />
+		<br>
+
+		<div class="emotion">	
+			You're feeling <span class="emotionvalue">happy</span>.<br>
+		</div>
 
 
-<div class="emotion">
-You've been feeling <span class="emotionvalue">happy</span> lately.<br>
-</div>
-<br>
-<br>
 
 
+		<div class="emotionScores">
+		</div>
 
-<div id="content">
-	<div id="controls">
-		<input class="btn" type="button" value="wait, loading video" disabled="disabled" onclick="startVideo()" id="startbutton"></input>
+		<div id="container">
+			<video id="videoel" width="400" height="300" preload="auto" loop>
+			</video>
+			<canvas id="overlay" width="400" height="300"></canvas>
+		</div>
 	</div>
-
-
-
-<div id="container">
-	<video id="videoel" width="400" height="300" preload="auto" loop>
-	</video>
-	<canvas id="overlay" width="400" height="300"></canvas>
 </div>
+
+
+
+
+
 	
 	
 
@@ -152,6 +165,7 @@ You've been feeling <span class="emotionvalue">happy</span> lately.<br>
 				console.log(maxEmotion)
 				state = 0;
 				$(".emotionvalue").text(maxEmotion);
+				$("#emoji").src("img/" + maxEmotion + ".png")
 			}
 		}
 		
