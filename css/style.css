@@ -129,6 +129,7 @@ h1 {
 	position: fixed;
 	font-family: "Libre Baskerville", serif;
 	padding: 5% 4% 0% 4%;
+	overflow-y:scroll;
 }
 
 .title {
@@ -165,4 +166,9 @@ h1 {
 	left:50px;
 	display: block;
     margin-left: 80px;
+}
+
+.emotionalContent {
+	margin-top: 50px;
+	margin-bottom: 50px;
 }
