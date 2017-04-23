@@ -1,6 +1,12 @@
 
 console.log('thread starting');
-importScripts('js/gaze/util.js', 'js/gaze/mat.js');
+
+
+if('function' === typeof importScripts) {
+    importScripts('js/gaze/util.js', 'js/gaze/mat.js');
+}
+
+
 var ridgeParameter = Math.pow(10,-5);
 var resizeWidth = 10;
 var resizeHeight = 6;
