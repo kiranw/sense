@@ -157,8 +157,8 @@
 		    gazeY.unshift(ypred);
 
 		    // average over the window to reduce noise, can apply a weighting function to it
-			gazeX = gazeX.reduce( (prev, curr) => prev + curr )/float(windowSize);
-			gazeY = gazeY.reduce( (prev, curr) => prev + curr )/float(windowSize);
+			gazeX = gazeX.reduce( (prev, curr) => prev + curr )/(windowSize);
+			gazeY = gazeY.reduce( (prev, curr) => prev + curr )/(windowSize);
 
 			// display the results
 		    console.log(gazeX, gazeY); //elapsed time is based on time since begin was called
