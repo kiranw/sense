@@ -137,6 +137,20 @@
 		var currentX = 0;
 		var currentY = 0;
 
+		var eyePosPrediction = document.createElement('div');
+			    eyePosPrediction.style.position = 'fixed';
+			    eyePosPrediction.style.zIndex = 99999;
+			    eyePosPrediction.style.left = '-5px'; //'-999em';
+			    eyePosPrediction.style.top  = '-5px';
+			    eyePosPrediction.style.width = '10px';
+			    eyePosPrediction.style.height = '10px';
+			    eyePosPrediction.style.background = 'green';
+			    eyePosPrediction.style.display = 'none';
+			    eyePosPrediction.style.borderRadius = '100%';
+			    eyePosPrediction.style.opacity = '0.7';
+			    eyePosPrediction.style.display = 'block';
+
+
 		function updateGazePoints(x, y) {
 			console.log("in the function");
 			console.log(windowSize);
@@ -162,20 +176,8 @@
 
 			// display the results
 		    console.log(gazeX, gazeY); //elapsed time is based on time since begin was called
-
-			var eyePosPrediction = document.createElement('div');
-			    eyePosPrediction.style.position = 'fixed';
-			    eyePosPrediction.style.zIndex = 99999;
-			    eyePosPrediction.style.left = '-5px'; //'-999em';
-			    eyePosPrediction.style.top  = '-5px';
-			    eyePosPrediction.style.width = '10px';
-			    eyePosPrediction.style.height = '10px';
-			    eyePosPrediction.style.background = 'green';
-			    eyePosPrediction.style.display = 'none';
-			    eyePosPrediction.style.borderRadius = '100%';
-			    eyePosPrediction.style.opacity = '0.7';
+			
 		    eyePosPrediction.style.transform = 'translate3d(' + xpred + 'px,' + ypred + 'px,0)';
-		    eyePosPrediction.style.display = 'block';
 		}
 
 
