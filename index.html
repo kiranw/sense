@@ -157,8 +157,8 @@
 		    gazeY.unshift(ypred);
 
 		    // average over the window to reduce noise, can apply a weighting function to it
-			gazeX = gazeX.reduce( (prev, curr) => prev + curr )/(windowSize);
-			gazeY = gazeY.reduce( (prev, curr) => prev + curr )/(windowSize);
+			xpred = gazeX.reduce( (prev, curr) => prev + curr )/(windowSize);
+			ypred = gazeY.reduce( (prev, curr) => prev + curr )/(windowSize);
 
 			// display the results
 		    console.log(gazeX, gazeY); //elapsed time is based on time since begin was called
@@ -174,7 +174,7 @@
 			    eyePosPrediction.style.display = 'none';
 			    eyePosPrediction.style.borderRadius = '100%';
 			    eyePosPrediction.style.opacity = '0.7';
-		    eyePosPrediction.style.transform = 'translate3d(' + gazeX + 'px,' + gazeY + 'px,0)';
+		    eyePosPrediction.style.transform = 'translate3d(' + xpred + 'px,' + ypred + 'px,0)';
 		    eyePosPrediction.style.display = 'block';
 		}
 
