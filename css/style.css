@@ -172,3 +172,19 @@ h1 {
 	margin-top: 50px;
 	margin-bottom: 50px;
 }
+
+#eyePosPrediction {
+	position: fixed;
+	display: block;
+	z-index: 9999;
+    left: '-5px'; //'-999em';
+    top:  '-5px';
+    width: '10px';
+    height: '10px';
+    background: 'green';
+    display: 'none';
+    border-radius: '100%';
+    opacity: '0.7';
+    display: 'block';
+}
+			    
