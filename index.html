@@ -139,6 +139,14 @@
 
 		function updateGazePoints(x, y) {
 			console.log("in the function");
+			console.log(windowSize);
+
+			// Collect the scroll position because gaze tracking only gives us relative information based
+			// on what is displayed on the page window
+			// reference: http://stackoverflow.com/questions/3464876/javascript-get-window-x-y-position-for-scroll
+			var topScrollOffset  = window.pageYOffset || document.documentElement.scrollTop;
+		    var leftScrollOffset = window.pageXOffset || document.documentElement.scrollLeft;
+
 			var xpred = x + leftScrollOffset; //these x coordinates are relative to the viewport 
 		    var ypred = y + topScrollOffset; //these y coordinates are relative to the viewport
 
@@ -169,11 +177,6 @@
 		    eyePosPrediction.style.display = 'block';
 		}
 
-		// Collect the scroll position because gaze tracking only gives us relative information based
-		// on what is displayed on the page window
-		// reference: http://stackoverflow.com/questions/3464876/javascript-get-window-x-y-position-for-scroll
-		var topScrollOffset  = window.pageYOffset || document.documentElement.scrollTop;
-	    var leftScrollOffset = window.pageXOffset || document.documentElement.scrollLeft;
 
 		// set regression model used in tracking
 		webgazer.setRegression('weightedRidge');
@@ -191,7 +194,7 @@
 
 		    // add to window for smoothing
 		    console.log(gazeX);
-		    updateGazePoints(xprediction, yprediction)
+		    updateGazePoints(xprediction, yprediction);
 		    
 		}).begin()
 		.showPredictionPoints(true);
