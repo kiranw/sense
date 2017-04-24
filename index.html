@@ -137,31 +137,15 @@
 		var currentX = 0;
 		var currentY = 0;
 
-		// Collect the scroll position because gaze tracking only gives us relative information based
-		// on what is displayed on the page window
-		// reference: http://stackoverflow.com/questions/3464876/javascript-get-window-x-y-position-for-scroll
-		var topScrollOffset  = window.pageYOffset || document.documentElement.scrollTop;
-	    var leftScrollOffset = window.pageXOffset || document.documentElement.scrollLeft;
+		function updateGazePoints(x, y) {
+			console.log("in the function");
+			var xpred = x + leftScrollOffset; //these x coordinates are relative to the viewport 
+		    var ypred = y + topScrollOffset; //these y coordinates are relative to the viewport
 
-		// set regression model used in tracking
-		webgazer.setRegression('weightedRidge')
-
-		// collect prediction values
-		webgazer.setGazeListener(function(data, elapsedTime) {
-		    if (data == null) {
-		        return;
-		    }
-
-		    // bound prediction by viewport edges
-		    webgazer.util.bound(data);
-		    var xprediction = data.x + leftScrollOffset; //these x coordinates are relative to the viewport 
-		    var yprediction = data.y + topScrollOffset; //these y coordinates are relative to the viewport
-
-		    // add to window for smoothing
 		    gazeX.pop();
 		    gazeY.pop();
-		    gazeX.unshift(xprediction);
-		    gazeY.unshift(yprediction);
+		    gazeX.unshift(xpred);
+		    gazeY.unshift(ypred);
 
 		    // average over the window to reduce noise, can apply a weighting function to it
 			gazeX = gazeX.reduce( (prev, curr) => prev + curr )/float(windowSize);
@@ -169,7 +153,6 @@
 
 			// display the results
 		    console.log(gazeX, gazeY); //elapsed time is based on time since begin was called
-
 
 			var eyePosPrediction = document.createElement('div');
 			    eyePosPrediction.style.position = 'fixed';
@@ -184,6 +167,32 @@
 			    eyePosPrediction.style.opacity = '0.7';
 		    eyePosPrediction.style.transform = 'translate3d(' + gazeX + 'px,' + gazeY + 'px,0)';
 		    eyePosPrediction.style.display = 'block';
+		}
+
+		// Collect the scroll position because gaze tracking only gives us relative information based
+		// on what is displayed on the page window
+		// reference: http://stackoverflow.com/questions/3464876/javascript-get-window-x-y-position-for-scroll
+		var topScrollOffset  = window.pageYOffset || document.documentElement.scrollTop;
+	    var leftScrollOffset = window.pageXOffset || document.documentElement.scrollLeft;
+
+		// set regression model used in tracking
+		webgazer.setRegression('weightedRidge');
+
+		// collect prediction values
+		webgazer.setGazeListener(function(data, elapsedTime) {
+		    if (data == null) {
+		        return;
+		    }
+
+		    // bound prediction by viewport edges
+		    webgazer.util.bound(data);
+		    var xprediction = data.x; //these x coordinates are relative to the viewport 
+		    var yprediction = data.y; //these y coordinates are relative to the viewport
+
+		    // add to window for smoothing
+		    console.log(gazeX);
+		    updateGazePoints(xprediction, yprediction)
+		    
 		}).begin()
 		.showPredictionPoints(true);
 		           
