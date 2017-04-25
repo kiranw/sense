@@ -318,7 +318,7 @@
 
 					maxValue = 0;
 					for (var i = 0;i < er.length;i++) {
-						if (  (maxValue < (er[i].value-initial[i])/initial[i]) && er[i].value > 0.6 ){
+						if (  (maxValue < (er[i].value-initial[i])/initial[i]) || er[i].value > 0.6 ){
 							maxEmotion = er[i].emotion;
 						}
 
