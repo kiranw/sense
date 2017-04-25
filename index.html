@@ -324,19 +324,19 @@
 						}
 
 						if (er[i].emotion == "happy"){
-							happy = er[i].value;
+							happy = max((er[i].value - initial[i])/er[i].value, er[i].value);
 						}
 
 						if (er[i].emotion == "sad"){
-							sad = er[i].value;
+							sad =  max((er[i].value - initial[i])/er[i].value, er[i].value);
 						}
 
 						if (er[i].emotion == "angry"){
-							angry = er[i].value;
+							angry =  max((er[i].value - initial[i])/er[i].value, er[i].value);
 						}
 
 						if (er[i].emotion == "surprised"){
-							surprised = er[i].value;
+							surprised =  max((er[i].value - initial[i])/er[i].value, er[i].value);
 						}
 
 						$("." + er[i].emotion + "value").text(Math.round(er[i].value * 1000) / 1000);
@@ -348,8 +348,13 @@
 
 					// a threshold cascade to see if the emotion is extreme enough to
 					// characterize with certainty, and then display
-
-					if (sad > 0.3){
+					if (happy > 0.5) {
+						maxEmotion = "happy";
+						registerEmotion(maxEmotion);
+						$(".emotionvalue").text(maxEmotion);
+						document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
+					}
+					else if (sad > 0.3){
 						if (angry > 0.4){
 							maxEmotion = "angry";
 							registerEmotion(maxEmotion);
@@ -363,13 +368,7 @@
 							document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
 						}
 					}
-					else if (happy > 0.7){
-						maxEmotion = "happy";
-						registerEmotion(maxEmotion);
-						$(".emotionvalue").text(maxEmotion);
-						document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
-					}
-					else if (surprised > 0.7){
+					else if (surprised > 0.5){
 						maxEmotion = "surprised";
 						registerEmotion(maxEmotion);
 						$(".emotionvalue").text(maxEmotion);
