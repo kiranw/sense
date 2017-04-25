@@ -319,8 +319,10 @@
 
 					maxValue = 0;
 					for (var i = 0;i < er.length;i++) {
-						if (  (maxValue < (er[i].value-initial[i])/initial[i]) || er[i].value > 0.6 ){
+						// if (  (maxValue < (er[i].value-initial[i])/initial[i]) || er[i].value > 0.6 ){
+						if ( maxValue < er[i].value ){
 							maxEmotion = er[i].emotion;
+							maxValue = er[i].value;
 						}
 
 						if (er[i].emotion == "happy"){
@@ -329,15 +331,18 @@
 						}
 
 						if (er[i].emotion == "sad"){
-							sad =  Math.max((er[i].value - initial[i])/er[i].value, er[i].value);
+							sad = er[i].value;
+							// sad =  Math.max((er[i].value - initial[i])/er[i].value, er[i].value);
 						}
 
 						if (er[i].emotion == "angry"){
-							angry =  Math.max((er[i].value - initial[i])/er[i].value, er[i].value);
+							angry  = er[i].value;
+							// =  Math.max((er[i].value - initial[i])/er[i].value, er[i].value);
 						}
 
 						if (er[i].emotion == "surprised"){
-							surprised =  Math.max((er[i].value - initial[i])/er[i].value, er[i].value);
+							surprised = er[i].value;
+							 // =  Math.max((er[i].value - initial[i])/er[i].value, er[i].value);
 						}
 
 						$("." + er[i].emotion + "value").text(Math.round(er[i].value * 1000) / 1000);
@@ -349,36 +354,43 @@
 
 					// a threshold cascade to see if the emotion is extreme enough to
 					// characterize with certainty, and then display
-					if (happy > 0.5) {
-						maxEmotion = "happy";
+					if (maxValue > 0.5) {
 						registerEmotion(maxEmotion);
 						$(".emotionvalue").text(maxEmotion);
 						document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
 					}
-					else if (sad > 0.3){
-						if (angry > 0.4){
-							maxEmotion = "angry";
-							registerEmotion(maxEmotion);
-							$(".emotionvalue").text(maxEmotion);
-							document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
-						}
-						else {
-							maxEmotion = "sad";
-							registerEmotion(maxEmotion);
-							$(".emotionvalue").text(maxEmotion);
-							document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
-						}
-					}
-					else if (surprised > 0.4){
-						maxEmotion = "surprised";
-						registerEmotion(maxEmotion);
-						$(".emotionvalue").text(maxEmotion);
-						document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
-					}
+					// if (happy > 0.5) {
+					// 	maxEmotion = "happy";
+					// 	registerEmotion(maxEmotion);
+					// 	$(".emotionvalue").text(maxEmotion);
+					// 	document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
+					// }
+					// else if (sad > 0.3){
+					// 	if (angry > 0.4){
+					// 		maxEmotion = "angry";
+					// 		registerEmotion(maxEmotion);
+					// 		$(".emotionvalue").text(maxEmotion);
+					// 		document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
+					// 	}
+					// 	else {
+					// 		maxEmotion = "sad";
+					// 		registerEmotion(maxEmotion);
+					// 		$(".emotionvalue").text(maxEmotion);
+					// 		document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
+					// 	}
+					// }
+					// else if (surprised > 0.4){
+					// 	maxEmotion = "surprised";
+					// 	registerEmotion(maxEmotion);
+					// 	$(".emotionvalue").text(maxEmotion);
+					// 	document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
+					// }
 
 					// Neutral
-					$(".emotionvalue").text("neutral");
-					document.getElementById("emoji").src = "img/neutral.png";
+					else {
+						$(".emotionvalue").text("neutral");
+						document.getElementById("emoji").src = "img/neutral.png";
+					}
 				}
 			}
 		}
