@@ -184,8 +184,9 @@
 
 		// Register an emotion when triggered 
 		function registerEmotion(emotion) {
+			console.log("attempting to register emotion")
 			// prevent emotions from registering too often
-			if (Math.abs(lastPlottedX - gazeX) > 100 || Math.abs(lastPlottedY - gazeY) > 100) {
+			if (Math.abs(lastPlottedX - currentX) > 100 || Math.abs(lastPlottedY - currentY) > 100) {
 				// prevent redundant emotions, only plot on transitions
 				if (lastEmotion != emotion) {
 					console.log("plotting emotion")
@@ -194,8 +195,8 @@
 												 "transform:translate3d(" + currentX + 
 												 "px," + currentY + "px,0)" + 
 												 "' class='emoji'></div>")	
-					lastPlottedX = gazeX;
-					lastPlottedY = gazeY;
+					lastPlottedX = currentX;
+					lastPlottedY = currentY;
 					lastEmotion  = emotion;
 				}
 			}
@@ -310,7 +311,7 @@
 				}
 				// Actually find the emotion that is being recorded
 				else {
-					maxEmotion = "happy";
+					maxEmotion = "neutral";
 					sad = 0;
 					happy = 0;
 					angry = 0;
