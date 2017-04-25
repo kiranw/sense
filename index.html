@@ -181,8 +181,7 @@
 		function registerEmotion(emotion) {
 			console.log("registering emotion: ",emotion);
 			$("#emojiAnnotations").append("<img src='img/" + emotion +
-										 "_emoji.png' style='left:" + currentX +
-										 "; top:" + currentY + "'' class='emoji'></div>")
+										 "_emoji.png' style='transform:'" + currentX + "px," + currentY + "px,0)'' class='emoji'></div>")
 		}
 
 
