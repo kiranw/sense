@@ -324,19 +324,19 @@
 						}
 
 						if (er[i].emotion == "happy"){
-							happy = max((er[i].value - initial[i])/er[i].value, er[i].value);
+							happy = Math.max((er[i].value - initial[i])/er[i].value, er[i].value);
 						}
 
 						if (er[i].emotion == "sad"){
-							sad =  max((er[i].value - initial[i])/er[i].value, er[i].value);
+							sad =  Math.max((er[i].value - initial[i])/er[i].value, er[i].value);
 						}
 
 						if (er[i].emotion == "angry"){
-							angry =  max((er[i].value - initial[i])/er[i].value, er[i].value);
+							angry =  Math.max((er[i].value - initial[i])/er[i].value, er[i].value);
 						}
 
 						if (er[i].emotion == "surprised"){
-							surprised =  max((er[i].value - initial[i])/er[i].value, er[i].value);
+							surprised =  Math.max((er[i].value - initial[i])/er[i].value, er[i].value);
 						}
 
 						$("." + er[i].emotion + "value").text(Math.round(er[i].value * 1000) / 1000);
