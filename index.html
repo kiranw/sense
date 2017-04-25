@@ -325,7 +325,7 @@
 
 						if (er[i].emotion == "happy"){
 							// happy = Math.max((er[i].value - initial[i])/er[i].value, er[i].value);
-							happy = er[i].value;
+							happy = er[i].value * 4;
 						}
 
 						if (er[i].emotion == "sad"){
@@ -369,7 +369,7 @@
 							document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
 						}
 					}
-					else if (surprised > 0.5){
+					else if (surprised > 0.4){
 						maxEmotion = "surprised";
 						registerEmotion(maxEmotion);
 						$(".emotionvalue").text(maxEmotion);
