@@ -358,37 +358,38 @@
 
 					// a threshold cascade to see if the emotion is extreme enough to
 					// characterize with certainty, and then display
-					if (maxValue > 0.5) {
+					// if (maxValue > 0.5) {
+					// 	registerEmotion(maxEmotion);
+					// 	$(".emotionvalue").text(maxEmotion);
+					// 	document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
+					// }
+					if (happy > 0.02) {
+						maxEmotion = "happy";
 						registerEmotion(maxEmotion);
 						$(".emotionvalue").text(maxEmotion);
 						document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
 					}
-					// if (happy > 0.5) {
-					// 	maxEmotion = "happy";
-					// 	registerEmotion(maxEmotion);
-					// 	$(".emotionvalue").text(maxEmotion);
-					// 	document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
-					// }
-					// else if (sad > 0.3){
-					// 	if (angry > 0.4){
-					// 		maxEmotion = "angry";
-					// 		registerEmotion(maxEmotion);
-					// 		$(".emotionvalue").text(maxEmotion);
-					// 		document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
-					// 	}
-					// 	else {
-					// 		maxEmotion = "sad";
-					// 		registerEmotion(maxEmotion);
-					// 		$(".emotionvalue").text(maxEmotion);
-					// 		document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
-					// 	}
-					// }
-					// else if (surprised > 0.4){
-					// 	maxEmotion = "surprised";
-					// 	registerEmotion(maxEmotion);
-					// 	$(".emotionvalue").text(maxEmotion);
-					// 	document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
-					// }
+					else if (surprised > 0.2){
+						maxEmotion = "surprised";
+						registerEmotion(maxEmotion);
+						$(".emotionvalue").text(maxEmotion);
+						document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
+					}
+					else if (sad < 0.1){
+						if (angry > 0.4){
+							maxEmotion = "angry";
+							registerEmotion(maxEmotion);
+							$(".emotionvalue").text(maxEmotion);
+							document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
+						}
+						else if (angry < 0.1) {
+							maxEmotion = "sad";
+							registerEmotion(maxEmotion);
+							$(".emotionvalue").text(maxEmotion);
+							document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
+						}
+					}
+					
 
 					// Neutral
 					else {
