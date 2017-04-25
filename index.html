@@ -146,6 +146,10 @@
 		var currentX = 0;
 		var currentY = 0;
 
+		var lastPlottedX = 0;
+		var lastPlottedY = 0;
+		var lastEmotion = 0;
+
 
 		// Takes in the coordinates from WebGazer, adjusts them to be relative to viewports
 		// and screen position, and then add our value to the smoothing protocol
@@ -182,9 +186,21 @@
 
 		// Register an emotion when triggered 
 		function registerEmotion(emotion) {
-			code = 
-			$("#emojiAnnotations").append("<img src='img/" + emotion +
-										 "_emoji.png' style='" + "transform:translate3d(" + currentX + "px," + currentY + "px,0)" + "' class='emoji'></div>")
+			// prevent emotions from registering too often
+			if (abs(lastPlottedX - gazeX) > 100 || abs(lastPlottedY - gazeY) > 100) {
+				// prevent redundant emotions, only plot on transitions
+				if (lastEmotion != emotion) {
+					$("#emojiAnnotations").append("<img src='img/" + emotion +
+												 "_emoji.png' style='" + 
+												 "transform:translate3d(" + currentX + 
+												 "px," + currentY + "px,0)" + 
+												 "' class='emoji'></div>")	
+					lastPlottedX = gazeX;
+					lastPlottedY = gazeY;
+					lastEmotion  = emotion;
+				}
+			}
+			
 		}
 
 
@@ -280,8 +296,6 @@
 		initial_window = 0
 		INITIAL_WINDOW_SIZE = 50
 
-		var state = 1;
-
 		function drawLoop() {
 			requestAnimFrame(drawLoop);
 			var cp = ctrack.getCurrentParameters();
@@ -305,10 +319,7 @@
 
 					maxValue = 0;
 					for (var i = 0;i < er.length;i++) {
-						if (state==1){
-							initial[i] = er[i].value;
-						}
-						if (  (maxValue < (er[i].value-initial[i])/initial[i]) || er[i].value > 0.4 ){
+						if (  (maxValue < (er[i].value-initial[i])/initial[i]) && er[i].value > 0.6 ){
 							maxEmotion = er[i].emotion;
 						}
 
@@ -352,8 +363,10 @@
 						maxEmotion = "happy";
 						registerEmotion(maxEmotion);
 					}
-
-					state = 0;
+					else if (surprised > 0.7){
+						maxEmotion = "surprised";
+						registerEmotion(maxEmotion);
+					}
 					$(".emotionvalue").text(maxEmotion);
 					document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
 				}

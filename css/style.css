@@ -197,7 +197,7 @@ img #emojiAnnotations{
 	width: 15px;
 	height: auto;
 	display: block;
-	position: fixed;
+	position: absolute;
 	z-index: 9999;
 }
 			    
