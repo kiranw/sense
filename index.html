@@ -148,8 +148,6 @@
 		// Takes in the coordinates from WebGazer, adjusts them to be relative to viewports
 		// and screen position, and then add our value to the smoothing protocol
 		function updateGazePoints(x, y) {
-			console.log("in the function");
-			console.log(WINDOW_SIZE);
 
 			// Collect the scroll position because gaze tracking only gives us relative information based
 			// on what is displayed on the page window
@@ -171,7 +169,7 @@
 			currentY = gazeY.reduce( (prev, curr) => prev + curr )/(WINDOW_SIZE);
 
 			// display the results
-		    console.log(currentX, currentY);
+		    // console.log(currentX, currentY);
 			
 		    $('#eyePosPrediction').css({
 			    transform: 'translate3d(' + currentX + 'px,' + currentY + 'px,0)'
@@ -180,7 +178,6 @@
 
 		// Register an emotion when triggered 
 		function registerEmotion(emotion) {
-			console.log("registering emotion: ",emotion);
 			code = 
 			$("#emojiAnnotations").append("<img src='img/" + emotion +
 										 "_emoji.png' style='" + "transform:translate3d(" + currentX + "px," + currentY + "px,0)" + "' class='emoji'></div>")
@@ -329,7 +326,7 @@
 
 						$("." + er[i].emotion + "value").text(er[i].value);
 					}
-					console.log(maxEmotion)
+					// console.log(maxEmotion)
 					
 					// make this the default emotion that is displayed
 					maxEmotion = "neutral"
