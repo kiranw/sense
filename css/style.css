@@ -184,4 +184,12 @@ h1 {
     background-color: aqua;
     border-radius: 100%;
 }
+
+img #emojiAnnotations{
+	width: 15px;
+	height: auto;
+	display: block;
+	position: fixed;
+	z-index: 9999;
+}
 			    

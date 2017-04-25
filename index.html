@@ -92,7 +92,7 @@
 			<input class="btn" type="button" value="wait, loading video" disabled="disabled" onclick="startVideo()" id="startbutton"></input>
 		</div>
 		<br>
-		<img id="emoji" src="img/happy.png" />
+		<img id="emoji" src="img/neutral.png" />
 		<br>
 
 		<div class="emotion">	
@@ -117,7 +117,12 @@
 	</div>
 </div>
 
+
+<!-- Shows where the smoothed gaze position is -->
 <div id="eyePosPrediction"></div>
+
+<!-- Collects the emojis that we annotate a page with -->
+<div id="emojiAnnotations"></div>
 
 
 	
@@ -133,16 +138,18 @@
 		//===========================================================================
 		//===========================================================================
 
-		var windowSize = 20;
-		var gazeX = Array(windowSize).fill(0);
-		var gazeY = Array(windowSize).fill(0);
+		var WINDOW_SIZE = 20;
+		var gazeX = Array(WINDOW_SIZE).fill(0);
+		var gazeY = Array(WINDOW_SIZE).fill(0);
 		var currentX = 0;
 		var currentY = 0;
 
 
+		// Takes in the coordinates from WebGazer, adjusts them to be relative to viewports
+		// and screen position, and then add our value to the smoothing protocol
 		function updateGazePoints(x, y) {
 			console.log("in the function");
-			console.log(windowSize);
+			console.log(WINDOW_SIZE);
 
 			// Collect the scroll position because gaze tracking only gives us relative information based
 			// on what is displayed on the page window
@@ -153,42 +160,46 @@
 			var xpred = x + leftScrollOffset; //these x coordinates are relative to the viewport 
 		    var ypred = y + topScrollOffset; //these y coordinates are relative to the viewport
 
-		    console.log(gazeX, gazeY);
 		    gazeX.pop();
 		    gazeY.pop();
 		    gazeX.unshift(xpred);
 		    gazeY.unshift(ypred);
 
 		    // average over the window to reduce noise, can apply a weighting function to it
-			xpred = gazeX.reduce( (prev, curr) => prev + curr )/(windowSize);
-			ypred = gazeY.reduce( (prev, curr) => prev + curr )/(windowSize);
+			currentX = gazeX.reduce( (prev, curr) => prev + curr )/(WINDOW_SIZE);
+			currentY = gazeY.reduce( (prev, curr) => prev + curr )/(WINDOW_SIZE);
 
 			// display the results
-		    console.log(gazeX, gazeY); //elapsed time is based on time since begin was called
+		    console.log(currentX, currentY);
 			
-		    // $("#eyePosPrediction").style.transform = 'translate3d(' + xpred + 'px,' + ypred + 'px,0)';
 		    $('#eyePosPrediction').css({
-			    transform: 'translate3d(' + xpred + 'px,' + ypred + 'px,0)'
+			    transform: 'translate3d(' + currentX + 'px,' + currentY + 'px,0)'
 			})
 		}
 
+		// Register an emotion when triggered 
+		function registerEmotion(emotion) {
+			$("#emojiAnnotations").append("<img src='img/" + emotion +
+										 "_emoji.png' style='left:" + currentX +
+										 "; top:" + currentY + "></div>")
+		}
 
-		// set regression model used in tracking
+
+		// Set regression model used in tracking
 		webgazer.setRegression('weightedRidge');
 
-		// collect prediction values
+		// Collect prediction values
 		webgazer.setGazeListener(function(data, elapsedTime) {
 		    if (data == null) {
 		        return;
 		    }
 
-		    // bound prediction by viewport edges
+		    // Bound prediction by viewport edges
 		    webgazer.util.bound(data);
-		    var xprediction = data.x; //these x coordinates are relative to the viewport 
-		    var yprediction = data.y; //these y coordinates are relative to the viewport
+		    var xprediction = data.x; // These x coordinates are relative to the viewport 
+		    var yprediction = data.y; // These y coordinates are relative to the viewport
 
-		    // add to window for smoothing
-		    console.log(gazeX);
+		    // Add to window for smoothing
 		    updateGazePoints(xprediction, yprediction);
 		    
 		}).begin()
@@ -263,6 +274,8 @@
 		}
 		
 		initial = [0,0,0,0]
+		initial_window = 0
+		INITIAL_WINDOW_SIZE = 50
 
 		var state = 1;
 
@@ -271,51 +284,76 @@
 			var cp = ctrack.getCurrentParameters();
 			var er = ec.meanPredict(cp);
 			if (er) {
-				maxEmotion = "happy";
-				sad = 0;
-				happy = 0;
-				angry = 0;
-				surprised = 0;
-
-				maxValue = 0;
-				for (var i = 0;i < er.length;i++) {
-					if (state==1){
-						initial[i] = er[i].value;
-					}
-					if (  (maxValue < (er[i].value-initial[i])/initial[i]) || er[i].value > 0.4 ){
-						maxEmotion = er[i].emotion;
-					}
-
-					if (er[i].emotion == "happy"){
-						happy = er[i].value;
-					}
-
-					if (er[i].emotion == "sad"){
-						sad = er[i].value;
-					}
-
-					if (er[i].emotion == "angry"){
-						angry = er[i].value;
-					}
-
-					if (er[i].emotion == "surprised"){
-						surprised = er[i].value;
-					}
-
-					$("." + er[i].emotion + "value").text(er[i].value);
-				}
-				console.log(maxEmotion)
-				if (sad > 0.3){
-					if (angry > 0.4){
-						maxEmotion = "angry";
-					}
-					else {
-						maxEmotion = "sad";
+				// Generate a baseline average so that 
+				// Calibration sequence
+				if (initial_window < INITIAL_WINDOW_SIZE){
+					for (var i = 0;i < er.length;i++) {
+						initial[i] += er[i].value/INITIAL_WINDOW_SIZE;
+						initial_window += 1;
 					}
 				}
-				state = 0;
-				$(".emotionvalue").text(maxEmotion);
-				document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
+				// Actually find the emotion that is being recorded
+				else {
+					maxEmotion = "happy";
+					sad = 0;
+					happy = 0;
+					angry = 0;
+					surprised = 0;
+
+					maxValue = 0;
+					for (var i = 0;i < er.length;i++) {
+						if (state==1){
+							initial[i] = er[i].value;
+						}
+						if (  (maxValue < (er[i].value-initial[i])/initial[i]) || er[i].value > 0.4 ){
+							maxEmotion = er[i].emotion;
+						}
+
+						if (er[i].emotion == "happy"){
+							happy = er[i].value;
+						}
+
+						if (er[i].emotion == "sad"){
+							sad = er[i].value;
+						}
+
+						if (er[i].emotion == "angry"){
+							angry = er[i].value;
+						}
+
+						if (er[i].emotion == "surprised"){
+							surprised = er[i].value;
+						}
+
+						$("." + er[i].emotion + "value").text(er[i].value);
+					}
+					console.log(maxEmotion)
+					
+					// make this the default emotion that is displayed
+					maxEmotion = "neutral"
+
+					// a threshold cascade to see if the emotion is extreme enough to
+					// characterize with certainty, and then display
+
+					if (sad > 0.3){
+						if (angry > 0.4){
+							maxEmotion = "angry";
+							registerEmotion(maxEmotion);
+						}
+						else {
+							maxEmotion = "sad";
+							registerEmotion(maxEmotion);
+						}
+					}
+					else if (happy > 0.7){
+						maxEmotion = "happy";
+						registerEmotion(maxEmotion);
+					}
+
+					state = 0;
+					$(".emotionvalue").text(maxEmotion);
+					document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
+				}
 			}
 		}
 		
