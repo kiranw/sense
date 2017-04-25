@@ -146,8 +146,8 @@
 		var currentX = 0;
 		var currentY = 0;
 
-		var lastPlottedX = 0;
-		var lastPlottedY = 0;
+		var lastPlottedX = -500;
+		var lastPlottedY = -500;
 		var lastEmotion = 0;
 
 
@@ -159,8 +159,6 @@
 			// on what is displayed on the page window
 			// reference: http://stackoverflow.com/questions/3464876/javascript-get-window-x-y-position-for-scroll
 			var topScrollOffset  = $("#leftpanel").scrollTop();
-			console.log($("#leftpanel"))
-			console.log(topScrollOffset);
 		    // var leftScrollOffset = window.pageXOffset || document.documentElement.scrollLeft;
 		    var leftScrollOffset = 0;
 
@@ -190,6 +188,7 @@
 			if (Math.abs(lastPlottedX - gazeX) > 100 || Math.abs(lastPlottedY - gazeY) > 100) {
 				// prevent redundant emotions, only plot on transitions
 				if (lastEmotion != emotion) {
+					console.log("plotting emotion")
 					$("#emojiAnnotations").append("<img src='img/" + emotion +
 												 "_emoji.png' style='" + 
 												 "transform:translate3d(" + currentX + 
@@ -367,6 +366,7 @@
 						maxEmotion = "surprised";
 						registerEmotion(maxEmotion);
 					}
+
 					$(".emotionvalue").text(maxEmotion);
 					document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
 				}
