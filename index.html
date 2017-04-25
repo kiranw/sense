@@ -363,14 +363,14 @@
 					// 	$(".emotionvalue").text(maxEmotion);
 					// 	document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
 					// }
-					if (happy > 0.02) {
-						maxEmotion = "happy";
+					if (surprised > 0.2){
+						maxEmotion = "surprised";
 						registerEmotion(maxEmotion);
 						$(".emotionvalue").text(maxEmotion);
 						document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
 					}
-					else if (surprised > 0.2){
-						maxEmotion = "surprised";
+					else if (happy > 0.02) {
+						maxEmotion = "happy";
 						registerEmotion(maxEmotion);
 						$(".emotionvalue").text(maxEmotion);
 						document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
