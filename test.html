@@ -95,22 +95,7 @@
 			<input class="btn" type="button" value="wait, loading video" disabled="disabled" onclick="startVideo()" id="startbutton"></input>
 		</div>
 		<br>
-		<img id="emoji" src="img/neutral.png" />
-		<br>
-
-		<div class="emotion">	
-			You're feeling <span class="emotionvalue">happy</span>.<br>
-		</div>
-
-
-
-
-		<div class="emotionScores">
-		Happy: <span class="happyvalue">0.5</span><br>
-		Sad: <span class="sadvalue">0.5</span><br>
-		Surprised: <span class="surprisedvalue">0.5</span><br>
-		Angry: <span class="angryvalue">0.5</span><br>
-		</div>
+		
 
 		<div id="container">
 			<video id="videoel" width="400" height="300" preload="auto" loop>
@@ -133,6 +118,80 @@
 
 
 		<script>	
+//===========================================================================
+//===========================================================================
+//            g a z e    t r a c k i n g   u s e r   t e s t
+//===========================================================================
+//===========================================================================
+// make face, click spacebar
+// put data in js object, etc.
+
+
+function download(text, name, type) {
+    var a = document.createElement("a");
+    var file = new Blob([text], {type: type});
+    a.href = URL.createObjectURL(file);
+    a.download = name;
+    a.click();
+}
+
+// Test 1-10
+var EYE_TEST_POS_X = [0,100,500,300,800,900,100,400,250,50]
+var EYE_TEST_POS_Y = [0,100,500,300,800,900,100,400,250,50]
+current_test = 0
+
+$('#eyePosPrediction').css({
+    transform: 'translate3d(' + EYE_TEST_POS_X[0] + 'px,' + EYE_TEST_POS_Y[0] + 'px,0)'
+})  
+
+var gazeTest = {
+	x_0: 0,
+	y_0: 0,
+	x_1: 0,
+	y_1: 0,
+	x_2: 0,
+	y_2: 0,
+	x_3: 0,
+	y_3: 0,
+	x_4: 0,
+	y_4: 0,
+	x_5: 0,
+	y_5: 0,
+	x_6: 0,
+	y_6: 0,
+	x_7: 0,
+	y_7: 0,
+	x_8: 0,
+	y_8: 0,
+	x_9: 0,
+	y_9: 0
+}
+
+document.body.onkeyup = function(e){
+    if(e.keyCode == 32){
+    	if (current_test < EYE_TEST_POS_X.length) {
+	 		gazeTest["x_"+current_test] = currentX;
+	 		gazeTest["y_"+current_test] = currentY;
+
+	 		current_test += 1;
+
+			$('#eyePosPrediction').css({
+			    transform: 'translate3d(' + EYE_TEST_POS_X[current_test] + 'px,' + EYE_TEST_POS_Y[current_test] + 'px,0)'
+			})  
+			if (current_test == EYE_TEST_POS_X.length){
+				file_text = JSON.stringify(gazeTest);
+				download(file_text, "gazeTest.txt", 'text/plain')
+			}
+		}
+    }
+    
+}
+
+
+
+
+
+
 
 //===========================================================================
 //===========================================================================
@@ -156,11 +215,6 @@
 		var surprisedWindow = Array(EMOTION_WINDOW_SIZE).fill(0);
 		var angryWindow = Array(EMOTION_WINDOW_SIZE).fill(0);
 
-		// Emotion Registering constants and counters
-		var lastPlottedX = -500;
-		var lastPlottedY = -500;
-		var lastEmotion = 0;
-		var emotionTimeout = 0;
 
 
 		// Takes in the coordinates from WebGazer, adjusts them to be relative to viewports
@@ -189,36 +243,10 @@
 			// display the results
 		    // console.log(currentX, currentY);
 			
-		    $('#eyePosPrediction').css({
-			    transform: 'translate3d(' + xpred + 'px,' + ypred + 'px,0)'
-			})
+
 		}
 
-		// Register an emotion when triggered 
-		function registerEmotion(emotion) {
-			console.log("attempting to register emotion")
-			// prevent emotions from registering too often
-			if (emotionTimeout > EMOTION_TIMEOUT_MINIMUM){
-				if (Math.abs(lastPlottedX - currentX) > 100 || Math.abs(lastPlottedY - currentY) > 100) {
-					// prevent redundant emotions, only plot on transitions
-					if (lastEmotion != emotion) {
-						console.log("plotting emotion")
-						$("#emojiAnnotations").append("<img src='img/" + emotion +
-													 "_emoji.png' style='" + 
-													 "transform:translate3d(" + currentX + 
-													 "px," + currentY + "px,0)" + 
-													 "' class='emoji'></div>")	
-						lastPlottedX = currentX;
-						lastPlottedY = currentY;
-						lastEmotion  = emotion;
-						emotionTimeout = 0;
-					}
-				}
-			}
-			else {
-				emotionTimeout += 1;
-			}
-		}
+		
 
 
 		// Set regression model used in tracking
@@ -239,7 +267,7 @@
 		    updateGazePoints(xprediction, yprediction);
 		    
 		}).begin()
-		.showPredictionPoints(true);
+		.showPredictionPoints(false);
 		           
 
 
@@ -368,7 +396,6 @@
 							 // =  Math.max((er[i].value - initial[i])/er[i].value, er[i].value);
 						}
 
-						$("." + er[i].emotion + "value").text(Math.round(er[i].value * 1000) / 1000);
 					}
 
 					console.log(maxEmotion)
@@ -387,34 +414,23 @@
 					if (sad < 0.1){ // cascaded because both of these are less sensitive and need to be 				   boosted if they are expressed
 						if (angry > 0.4){
 							maxEmotion = "angry";
-							registerEmotion(maxEmotion);
-							$(".emotionvalue").text(maxEmotion);
-							document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
+							
 						}
 						else if (angry < 0.1) {
 							maxEmotion = "sad";
-							registerEmotion(maxEmotion);
-							$(".emotionvalue").text(maxEmotion);
-							document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
+							
 						}
 					}
 					else if (surprised > 0.2){
 						maxEmotion = "surprised";
-						registerEmotion(maxEmotion);
-						$(".emotionvalue").text(maxEmotion);
-						document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
+						
 					}
 					else if (happy > 0.02) {
 						maxEmotion = "happy";
-						registerEmotion(maxEmotion);
-						$(".emotionvalue").text(maxEmotion);
-						document.getElementById("emoji").src = "img/" + maxEmotion + ".png";
+						
 					}
-					
-					// Neutral
 					else {
-						$(".emotionvalue").text("neutral");
-						document.getElementById("emoji").src = "img/neutral.png";
+						maxEmotion = "neutral";
 					}
 				}
 			}
