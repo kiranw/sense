@@ -43,13 +43,13 @@
 
 	<div class="title">User Test: Emotion Recognition</div>
 	<div class="contentText">
-		<p>First, make sure you calibrate the gaze tracking system by clicking on each corner and looking at it purposefully. After doing each corner twice, in circles, also make sure to calibrate the center and the corners once more.</p>
+		<div class="h3" id="prompt">happy</div>
 
-		<p>We display a blue dot on the screen - we want you to make eye contact with it, and press space bar. If it feels comfortable and natural, move the cursor where your eyes follow if that is how you read and use your computer when seeing content. Once, you press spacebar, the point will advance to the next position, and you will repeat the process.</p>
+		<p>We display a prompt, above, for an emotion on the screen. Make that expression at your screen and press spacebar. Once, you press spacebar, the prompt will advance to the next one, and you will repeat the process.</p>
 
 		<p>When complete, the data will automatically download.</p>
-
-		<p><a href="sense835.herokuapp.com/test2.html">Click here to go to the next user study!</a></p>	
+		<br><Br>
+		<p><a href="test.html">Click here to go to the first user study!</a></p>	
 	</div>
 </div>
 
@@ -110,6 +110,7 @@ var emotion_results = []
 var current_test = 0
 var total_tests = 60;
 
+$("#prompt").text(emotion_prompts[0]);
 
 var correct_happy = 0;
 var correct_sad = 0;
@@ -231,6 +232,7 @@ document.body.onkeyup = function(e){
 			if (current_test != total_tests){
 	    		nextTest = EMOTION_OPTIONS[Math.floor(Math.random()*4)];
 	    		emotion_prompts.push(nextTest);
+	    		$("#prompt").text(nextTest);
 		 	}
 
 		 	if (guess == emotion_prompts[current_test-1]){
@@ -254,14 +256,13 @@ document.body.onkeyup = function(e){
 				        result[a[i]] = 0;
 				    ++result[a[i]];
 				}
-				var emotionData = {
-					correctHappy: correct_happy/result["happy"];
-					correctSad: correct_sad/result["sad"];
-					correctSurprised: correct_surprised/result["surprised"];
-					correctAngry: correct_angry/result["angry"];
-					totalCorrect: (correct_surprised + correct_angry + correct_sad + correct_happy)/total_tests
-				}
-
+				var emotionData = {};
+				emotionData["correctHappy"] = correct_happy/result["happy"];
+				emotionData["correctSad"] = correct_sad/result["sad"];
+				emotionData["correctSurprised"] = correct_surprised/result["surprised"];
+				emotionData["correctAngry"] = correct_angry/result["angry"];
+				emotionData["totalCorrect"] = (correct_surprised + correct_angry + correct_sad + correct_happy)/total_tests
+				
 				file_text = JSON.stringify(emotionData);
 				download(file_text, "emotionTest.txt", 'text/plain')
 			}
