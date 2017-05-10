@@ -149,9 +149,9 @@ document.body.onkeyup = function(e){
 			else {
 				result = { };
 				for(var i = 0; i < emotion_prompts.length; ++i) {
-				    if(!result[a[i]])
-				        result[a[i]] = 0;
-				    ++result[a[i]];
+				    if(!result[emotion_prompts[i]])
+				        result[emotion_prompts[i]] = 0;
+				    ++result[emotion_prompts[i]];
 				}
 				var emotionData = {};
 				emotionData["correctHappy"] = correct_happy/result["happy"];
