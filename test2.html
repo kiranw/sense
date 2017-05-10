@@ -132,7 +132,7 @@ document.body.onkeyup = function(e){
 	    		$("#prompt").text(nextTest);
 		 	}
 
-		 	if (guess != emotion_prompts[current_test-1]){
+		 	if (guess == emotion_prompts[current_test-1]){
 		 		if (guess=="happy"){
 		 			correct_happy +=1;
 		 		}
