@@ -41,7 +41,7 @@
 	<!-- Collects the emojis that we annotate a page with -->
 	<div id="emojiAnnotations"></div>
 
-	<div class="title">User Test: Gaze Tracking</div>
+	<div class="title">User Test: Emotion Recognition</div>
 	<div class="contentText">
 		<p>First, make sure you calibrate the gaze tracking system by clicking on each corner and looking at it purposefully. After doing each corner twice, in circles, also make sure to calibrate the center and the corners once more.</p>
 
@@ -104,77 +104,186 @@ function download(text, name, type) {
 }
 
 // Test 1-10
-// var EYE_TEST_POS_X = [229,781,158,401,922,390,823,100,606,50]
-// var EYE_TEST_POS_Y = [70,461,70,73,600,504,452,600,250,50]
-var EYE_TEST_POS_X = [50];
-var EYE_TEST_POS_Y = [50];
-var results_X = [];
-var results_Y = [];
-current_test = 0
-total_tests = 60;
+// var EMOTION_PROMPTS = ["happy","sad","suprised","angry","happy","sad","happy","surprised","angry","sad","happy","sad","surprised","happy","surprised","angry","happy","surprised","sad","happy"]
+var emotion_prompts = ["happy"]
+var emotion_results = []
+var current_test = 0
+var total_tests = 60;
 
-$('#eyePosPrediction').css({
-    transform: 'translate3d(' + EYE_TEST_POS_X[0] + 'px,' + EYE_TEST_POS_Y[0] + 'px,0)'
-})  
 
-// var gazeTest = {
-// 	x_0: 0,
-// 	y_0: 0,
-// 	x_1: 0,
-// 	y_1: 0,
-// 	x_2: 0,
-// 	y_2: 0,
-// 	x_3: 0,
-// 	y_3: 0,
-// 	x_4: 0,
-// 	y_4: 0,
-// 	x_5: 0,
-// 	y_5: 0,
-// 	x_6: 0,
-// 	y_6: 0,
-// 	x_7: 0,
-// 	y_7: 0,
-// 	x_8: 0,
-// 	y_8: 0,
-// 	x_9: 0,
-// 	y_9: 0
+var correct_happy = 0;
+var correct_sad = 0;
+var correct_angry = 0;
+var correct_surprised = 0;
+
+var EMOTION_OPTIONS = ["happy","sad","surprised","angry"]
+
+// var emotionTest = {
+// 	test_0_happy: 0,
+// 	test_0_sad: 0,
+// 	test_0_surprised: 0,
+// 	test_0_angry: 0,
+// 	test_0_guess: 0,
+// 	test_1_happy: 0,
+// 	test_1_sad: 0,
+// 	test_1_surprised: 0,
+// 	test_1_angry: 0,
+// 	test_1_guess: 0,
+// 	test_2_happy: 0,
+// 	test_2_sad: 0,
+// 	test_2_surprised: 0,
+// 	test_2_angry: 0,
+// 	test_2_guess: 0,
+// 	test_3_happy: 0,
+// 	test_3_sad: 0,
+// 	test_3_surprised: 0,
+// 	test_3_angry: 0,
+// 	test_3_guess: 0,
+// 	test_4_happy: 0,
+// 	test_4_sad: 0,
+// 	test_4_surprised: 0,
+// 	test_4_angry: 0,
+// 	test_4_guess: 0,
+// 	test_5_happy: 0,
+// 	test_5_sad: 0,
+// 	test_5_surprised: 0,
+// 	test_5_angry: 0,
+// 	test_5_guess: 0,
+// 	test_6_happy: 0,
+// 	test_6_sad: 0,
+// 	test_6_surprised: 0,
+// 	test_6_angry: 0,
+// 	test_6_guess: 0,
+// 	test_7_happy: 0,
+// 	test_7_sad: 0,
+// 	test_7_surprised: 0,
+// 	test_7_angry: 0,
+// 	test_7_guess: 0,
+// 	test_8_happy: 0,
+// 	test_8_sad: 0,
+// 	test_8_surprised: 0,
+// 	test_8_angry: 0,
+// 	test_8_guess: 0,
+// 	test_9_happy: 0,
+// 	test_9_sad: 0,
+// 	test_9_surprised: 0,
+// 	test_9_angry: 0,
+// 	test_9_guess: 0,
+// 	test_10_happy: 0,
+// 	test_10_sad: 0,
+// 	test_10_surprised: 0,
+// 	test_10_angry: 0,
+// 	test_10_guess: 0,
+// 	test_11_happy: 0,
+// 	test_11_sad: 0,
+// 	test_11_surprised: 0,
+// 	test_11_angry: 0,
+// 	test_11_guess: 0,
+// 	test_12_happy: 0,
+// 	test_12_sad: 0,
+// 	test_12_surprised: 0,
+// 	test_12_angry: 0,
+// 	test_12_guess: 0,
+// 	test_13_happy: 0,
+// 	test_13_sad: 0,
+// 	test_13_surprised: 0,
+// 	test_13_angry: 0,
+// 	test_13_guess: 0,
+// 	test_14_happy: 0,
+// 	test_14_sad: 0,
+// 	test_14_surprised: 0,
+// 	test_14_angry: 0,
+// 	test_14_guess: 0,
+// 	test_15_happy: 0,
+// 	test_15_sad: 0,
+// 	test_15_surprised: 0,
+// 	test_15_angry: 0,
+// 	test_15_guess: 0,
+// 	test_16_happy: 0,
+// 	test_16_sad: 0,
+// 	test_16_surprised: 0,
+// 	test_16_angry: 0,
+// 	test_16_guess: 0,
+// 	test_17_happy: 0,
+// 	test_17_sad: 0,
+// 	test_17_surprised: 0,
+// 	test_17_angry: 0,
+// 	test_17_guess: 0,
+// 	test_18_happy: 0,
+// 	test_18_sad: 0,
+// 	test_18_surprised: 0,
+// 	test_18_angry: 0,
+// 	test_18_guess: 0,
+// 	test_19_happy: 0,
+// 	test_19_sad: 0,
+// 	test_19_surprised: 0,
+// 	test_19_angry: 0,
+// 	test_19_guess: 0,
 // }
 
 document.body.onkeyup = function(e){
     if(e.keyCode == 32){
     	if (current_test < total_tests) {
-	 		// gazeTest["x_"+current_test] = currentX;
-	 		// gazeTest["y_"+current_test] = currentY;
-	 		results_X.push(currentX);
-	 		results_Y.push(currentY);
+    		guess = currentGuess;
+    		emotion_results.push(guess);
+    		current_test += 1;
 
-	 		current_test += 1;
+			if (current_test != total_tests){
+	    		nextTest = EMOTION_OPTIONS[Math.floor(Math.random()*4)];
+	    		emotion_prompts.push(nextTest);
+		 	}
 
-	 		if (current_test != total_tests){
-		 		nextX = Math.floor(Math.random() * 1200);
-		 		nextY = Math.floor(Math.random() * 600);
-		 		EYE_TEST_POS_X.push(nextX);
-		 		EYE_TEST_POS_Y.push(nextY);
-
-
-				$('#eyePosPrediction').css({
-				    transform: 'translate3d(' + nextX + 'px,' + nextY + 'px,0)'
-				})  	
-	 		} 		
+		 	if (guess == emotion_prompts[current_test-1]){
+		 		if (guess=="happy"){
+		 			correct_happy +=1;
+		 		}
+		 		else if (guess =="sad"){
+		 			correct_sad += 1;
+		 		}
+		 		else if (guess == "surprised") {
+		 			correct_surprised += 1;
+		 		}
+		 		else {
+		 			correct_angry +=1;
+		 		}
+		 	}
 			else {
-				file_text = JSON.stringify(EYE_TEST_POS_X) + "\n" + 
-							JSON.stringify(EYE_TEST_POS_Y) + "\n" + 
-							JSON.stringify(results_X) + "\n" + 
-							JSON.stringify(results_Y);
-				download(file_text, "gazeTest.txt", 'text/plain')
+				result = { };
+				for(var i = 0; i < emotion_prompts.length; ++i) {
+				    if(!result[a[i]])
+				        result[a[i]] = 0;
+				    ++result[a[i]];
+				}
+				var emotionData = {
+					correctHappy: correct_happy/result["happy"];
+					correctSad: correct_sad/result["sad"];
+					correctSurprised: correct_surprised/result["surprised"];
+					correctAngry: correct_angry/result["angry"];
+					totalCorrect: (correct_surprised + correct_angry + correct_sad + correct_happy)/total_tests
+				}
+
+				file_text = JSON.stringify(emotionData);
+				download(file_text, "emotionTest.txt", 'text/plain')
 			}
 		}
     }
-    
 }
 
 
+var currentHappy = 0;
+var currentSad = 0;
+var currentAngry = 0;
+var currentSurprised = 0;
+var currentGuess = 0
 
+
+function updateEmotionData(happy, sad, angry, surprised, guess){
+	currentHappy = happy;
+	currentSad = sad;
+	currentAngry = angry;
+	currentSurprised = surprised;
+	currentGuess = guess;
+}
 
 
 
@@ -418,6 +527,8 @@ document.body.onkeyup = function(e){
 					else {
 						maxEmotion = "neutral";
 					}
+
+					updateEmotionData(happy, sad, angry, surprised, maxEmotion);
 				}
 			}
 		}
