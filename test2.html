@@ -156,9 +156,13 @@ document.body.onkeyup = function(e){
 				}
 				var emotionData = {};
 				emotionData["correctHappy"] = correct_happy/result["happy"];
+				emotionData["totalHappy"] = result["happy"];
 				emotionData["correctSad"] = correct_sad/result["sad"];
+				emotionData["totalSad"] = result["sad"];
+				emotionData["totalSurprised"] = result["surprised"];
 				emotionData["correctSurprised"] = correct_surprised/result["surprised"];
 				emotionData["correctAngry"] = correct_angry/result["angry"];
+				emotionData["totalAngry"] = result["angry"];
 				emotionData["totalCorrect"] = (correct_surprised + correct_angry + correct_sad + correct_happy)/total_tests
 				
 				file_text = JSON.stringify(emotionData);
