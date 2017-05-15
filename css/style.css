@@ -103,12 +103,10 @@ h1 {
 
 
 .logo2 {
-	width:400px;
-	height: auto;
-	margin: 0 auto;
-	display: block;
-    margin-top: 8%;
-    margin-bottom: 8%;
+    width: 400px;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
 }
 
 
@@ -130,7 +128,7 @@ h1 {
 
 #descriptionBlurb {
 	text-align: center;
-	padding:50px;
+	padding: 0px 20px;
 	font-family: "Roboto", sans-serif;
 }
 
