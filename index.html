@@ -422,6 +422,7 @@
 					refresh_counter += 1;
 					if (refresh_counter == REFRESH_WINDOW_SIZE){
 						ctrack2.reset();
+						ctrack2.start(vid);
 						refresh_counter = -1;
 						console.log("refreshed face rec")
 					}
