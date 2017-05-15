@@ -250,13 +250,6 @@
 		function displayAnalysis(){
 			// Histogram of all emojis
 			allEmojis = emojis.happyEmojis + emojis.sadEmojis + emojis.surprisedEmojs + emojis.angryEmojis
-			// allEmojis.sort();
-			
-
-			// var x1 = [];
-			// var x2 = [];
-			var y1 = [];
-			var y2 = [];
 			for (var i = 1; i < 500; i++) 
 			{
 			  k = Math.random();
@@ -266,7 +259,7 @@
 			  y2.push(k*2);
 			}
 			var trace1 = {
-			  y: y1,
+			  y: allEmojis,
 			  // x: y1,
 			  name: 'control',
 			  autobinx: false, 
@@ -281,19 +274,19 @@
 			  opacity: 0.5, 
 			  type: "histogram", 
 			  ybins: {
-			    end: 2.8, 
+			  //   end: 2.8, 
 			    size: 0.06, 
-			    start: .5
+			  //   start: .5
 			  }
 			};
 			var trace2 = {
-			  y: y2,
+			  y: emojis.happyEmojis,
 			  // x: y2, 
 			  autobinx: false, 
 			  marker: {
-			          color: "rgba(100, 200, 102, 0.7)",
+			          color: "rgba(222, 170, 0, 0.7)",
 			           line: {
-			            color:  "rgba(100, 200, 102, 1)", 
+			            color:  "rgba(222, 170, 0, 1)", 
 			            width: 1
 			    } 
 			       }, 
@@ -301,10 +294,69 @@
 			  opacity: 0.75, 
 			  type: "histogram", 
 			  ybins: { 
-			    end: 4, 
+			    // end: 4, 
 			    size: 0.06, 
-			    start: -3.2
-
+			    // start: -3.2
+			  }
+			};
+			var trace3 = {
+			  y: emojis.sadEmojis,
+			  // x: y2, 
+			  autobinx: false, 
+			  marker: {
+			          color: "rgba(57, 122, 127, 0.7)",
+			           line: {
+			            color:  "rgba(57, 122, 127, 1)", 
+			            width: 1
+			    } 
+			       }, 
+			  name: "experimental", 
+			  opacity: 0.75, 
+			  type: "histogram", 
+			  ybins: { 
+			    // end: 4, 
+			    size: 0.06, 
+			    // start: -3.2
+			  }
+			};
+			var trace4 = {
+			  y: emojis.surprisedEmojis,
+			  // x: y2, 
+			  autobinx: false, 
+			  marker: {
+			          color: "rgba(96, 230, 150, 0.7)",
+			           line: {
+			            color:  "rgba(96, 230, 150, 1)", 
+			            width: 1
+			    } 
+			       }, 
+			  name: "experimental", 
+			  opacity: 0.75, 
+			  type: "histogram", 
+			  ybins: { 
+			    // end: 4, 
+			    size: 0.06, 
+			    // start: -3.2
+			  }
+			};
+			var trace5 = {
+			  y: emojis.angryEmojis,
+			  // x: y2, 
+			  autobinx: false, 
+			  marker: {
+			          color: "rgba(205, 49, 53, 0.7)",
+			           line: {
+			            color:  "rgba(205, 49, 53, 1)", 
+			            width: 1
+			    } 
+			       }, 
+			  name: "experimental", 
+			  opacity: 0.75, 
+			  type: "histogram", 
+			  ybins: { 
+			    // end: 4, 
+			    size: 0.06, 
+			    // start: -3.2
 			  }
 			};
 			var data = [trace1, trace2];
