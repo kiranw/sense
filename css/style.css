@@ -214,4 +214,9 @@ img #emojiAnnotations{
 	position: absolute;
 	z-index: 9999;
 }
-			    
+		
+
+#plot {
+	width:400px;
+	height: 400px;
+}	    
