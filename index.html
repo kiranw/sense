@@ -253,21 +253,21 @@
 			// allEmojis.sort();
 			
 
-			var x1 = [];
-			var x2 = [];
+			// var x1 = [];
+			// var x2 = [];
 			var y1 = [];
 			var y2 = [];
 			for (var i = 1; i < 500; i++) 
 			{
 			  k = Math.random();
-			  x1.push(k*5);
-			  x2.push(k*10);
+			  // x1.push(k*5);
+			  // x2.push(k*10);
 			  y1.push(k);
 			  y2.push(k*2);
 			}
 			var trace1 = {
-			  y: x1,
-			  x: y1,
+			  y: y1,
+			  // x: y1,
 			  name: 'control',
 			  autobinx: false, 
 			  histnorm: "count", 
@@ -280,15 +280,15 @@
 			  },  
 			  opacity: 0.5, 
 			  type: "histogram", 
-			  xbins: {
+			  ybins: {
 			    end: 2.8, 
 			    size: 0.06, 
 			    start: .5
 			  }
 			};
 			var trace2 = {
-			  y: x2,
-			  x: y2, 
+			  y: y2,
+			  // x: y2, 
 			  autobinx: false, 
 			  marker: {
 			          color: "rgba(100, 200, 102, 0.7)",
@@ -300,7 +300,7 @@
 			  name: "experimental", 
 			  opacity: 0.75, 
 			  type: "histogram", 
-			  xbins: { 
+			  ybins: { 
 			    end: 4, 
 			    size: 0.06, 
 			    start: -3.2
