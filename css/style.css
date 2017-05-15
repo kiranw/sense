@@ -102,6 +102,16 @@ h1 {
 }
 
 
+.logo2 {
+	width:400px;
+	height: auto;
+	margin: 0 auto;
+	display: block;
+    margin-top: 8%;
+    margin-bottom: 8%;
+}
+
+
 .button2{
 	width:150px;
 	height:auto;
@@ -116,6 +126,10 @@ h1 {
 .emotion {
 	text-align:center;
 	font-size:1.5em;
+}
+
+#descriptionBlurb {
+	text-align: center;
 }
 
 .emotionvalue {
