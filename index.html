@@ -47,6 +47,13 @@
 
 		<p>We're going to go through a few different examples of text and images that will serve as a playground for you to express emotions. This system works best with extreme displays of emotion, which may not be natural for most content you view, but the aim is to tune the system to work on more subtle emotions in the future when the system comes with more calibration that is custom to how you specifically express emotions (this will adjust for sensitivity in subtle displays of emotion).</p>
 
+		<p>Sense is a project we developed for 6.835, in the Spring of 2017. Its a simple platform that overlays emojis over web content when a transition in emotion is detected, at the position of estimated gaze during that transition. Using some implementation built over CLM-tracker, we are able to map a face template to a face, and use measured deformation of different points to measure happiness, sadness, surprise and anger. When an emotion's prediction is strong enough and passes a threshold, it triggers a process that then collects the current gaze estimation, displays the emotion if it meets requirements and collects the data for analysis.</p>
+
+		<p>We're going to go through a few different examples of text and images that will serve as a playground for you to express emotions. This system works best with extreme displays of emotion, which may not be natural for most content you view, but the aim is to tune the system to work on more subtle emotions in the future when the system comes with more calibration that is custom to how you specifically express emotions (this will adjust for sensitivity in subtle displays of emotion).</p>
+
+		<p>Sense is a project we developed for 6.835, in the Spring of 2017. Its a simple platform that overlays emojis over web content when a transition in emotion is detected, at the position of estimated gaze during that transition. Using some implementation built over CLM-tracker, we are able to map a face template to a face, and use measured deformation of different points to measure happiness, sadness, surprise and anger. When an emotion's prediction is strong enough and passes a threshold, it triggers a process that then collects the current gaze estimation, displays the emotion if it meets requirements and collects the data for analysis.</p>
+
+		<p>We're going to go through a few different examples of text and images that will serve as a playground for you to express emotions. This system works best with extreme displays of emotion, which may not be natural for most content you view, but the aim is to tune the system to work on more subtle emotions in the future when the system comes with more calibration that is custom to how you specifically express emotions (this will adjust for sensitivity in subtle displays of emotion).</p>
 		<!-- <img class="emotionalContent" src="emotionalMaterial/image1.jpg" /> -->
 
 		<p></p>
@@ -197,13 +204,13 @@
 		}
 
 		// Register an emotion when triggered 
-		function registerEmotion(emotion) {
+		function registerEmotion(emotion, force=false) {
 			console.log("attempting to register emotion")
 			// prevent emotions from registering too often
-			if (emotionTimeout > EMOTION_TIMEOUT_MINIMUM){
-				if (Math.abs(lastPlottedX - currentX) > 100 || Math.abs(lastPlottedY - currentY) > 100) {
+			if (emotionTimeout > EMOTION_TIMEOUT_MINIMUM || force){
+				if (Math.abs(lastPlottedX - currentX) > 100 || Math.abs(lastPlottedY - currentY) > 100 || force) {
 					// prevent redundant emotions, only plot on transitions
-					if (lastEmotion != emotion) {
+					if (lastEmotion != emotion || force) {
 						plotX = currentX;
 						plotY = currentY;
 						// console.log("plotting emotion")
@@ -213,10 +220,12 @@
 													 "px," + plotY + "px,0)" + 
 													 "' class='emoji'></div>")	
 						emojis[emotion + "Emojis"].push(plotY);
-						lastPlottedX = plotX;
-						lastPlottedY = plotY;
-						lastEmotion  = emotion;
-						emotionTimeout = 0;
+						if (!force) {
+							lastPlottedX = plotX;
+							lastPlottedY = plotY;
+							lastEmotion  = emotion;
+							emotionTimeout = 0;
+						}
 					}
 				}
 			}
@@ -229,16 +238,16 @@
 		// Keypress emoji to wherever gaze currently as an alternative input
 		document.body.onkeyup = function(e){
 		    if(e.keyCode == 41){  // ")"
-		    	registerEmotion("happy");
+		    	registerEmotion("happy",true);
 		    }
 		    if(e.keyCode == 40){  // "("
-		    	registerEmotion("sad");
+		    	registerEmotion("sad",true);
 			}
 		    if(e.keyCode == 79){ // "O"
-		    	registerEmotion("surprised");
+		    	registerEmotion("surprised",true);
 		    }
-		    if(e.keyCode == 60){ // ""
-		    	registerEmotion("angry");
+		    if(e.keyCode == 60){ // "<"
+		    	registerEmotion("angry",true);
 		    }
 		}
 
