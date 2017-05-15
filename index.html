@@ -100,7 +100,7 @@
 
 
 <!-- Shows where the smoothed gaze position is -->
-<div id="eyePosPrediction"></div>
+<!-- <div id="eyePosPrediction"></div> -->
 
 
 <!-- Modal -->
@@ -191,9 +191,9 @@
 			// display the results
 		    // console.log(currentX, currentY);
 			
-		    $('#eyePosPrediction').css({
-			    transform: 'translate3d(' + xpred + 'px,' + ypred + 'px,0)'
-			})
+		 //    $('#eyePosPrediction').css({
+			//     transform: 'translate3d(' + xpred + 'px,' + ypred + 'px,0)'
+			// })
 		}
 
 		// Register an emotion when triggered 
@@ -362,7 +362,7 @@
 		    updateGazePoints(xprediction, yprediction);
 		    
 		}).begin()
-		.showPredictionPoints(true);
+		.showPredictionPoints(false);
 		           
 
 
