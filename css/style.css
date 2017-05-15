@@ -130,6 +130,8 @@ h1 {
 
 #descriptionBlurb {
 	text-align: center;
+	padding:50px;
+	font-family: "Roboto", sans-serif;
 }
 
 .emotionvalue {
@@ -220,3 +222,8 @@ img #emojiAnnotations{
 	width:400px;
 	height: 400px;
 }	    
+
+#buttons {
+	text-align: center;
+	margin: 0 auto;
+}
