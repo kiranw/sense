@@ -266,7 +266,9 @@
 		function displayAnalysis(){
 			emojis = {"happyEmojis":[203.75,1074.85,389.15],"sadEmojis":[715.15],"surprisedEmojis":[280.35],"angryEmojis":[492.6,780.2,1317.75]}
 			// Histogram of all emojis
-			allEmojis = emojis["happyEmojis"].concat(emojis["sadEmojis"]).concat(emojis["surprisedEmojs"]).concat(emojis["angryEmojis"])
+			var allEmojis = emojis["happyEmojis"].concat(emojis["sadEmojis"])
+			allEmojis = allEmojis.concat(emojis["surprisedEmojs"])
+			allEmojis = allEmojis.concat(emojis["angryEmojis"])
 			
 			var trace1 = {
 			  y: allEmojis,

@@ -219,15 +219,17 @@ img #emojiAnnotations{
 		
 
 #plot1 {
-	width:400px;
+	width:600px;
 	height: 400px;
-	float: left;
-	margin-right:50px;
+	margin: 0 auto;
+	margin-bottom: 50px;
 }	  
+
 #plot2 {
-	width:400px;
+	width:600px;
 	height: 400px;
-	float: left;
+	margin: 0 auto;
+	margin-bottom: 50px;
 }	    
 
 #buttons {
@@ -236,6 +238,6 @@ img #emojiAnnotations{
 }
 
 #plot-container {
-	display:inline-block;
+	display:block;
 
 }
