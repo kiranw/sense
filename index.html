@@ -234,6 +234,7 @@
 			}
 		}
 
+		
 
 		// Keypress emoji to wherever gaze currently as an alternative input
 		document.body.onkeyup = function(e){
@@ -261,6 +262,7 @@
 
 
 		function displayAnalysis(){
+			emojis = {"happyEmojis":[203.75,1074.85,389.15],"sadEmojis":[715.15],"surprisedEmojis":[280.35],"angryEmojis":[492.6,780.2,1317.75]}
 			// Histogram of all emojis
 			allEmojis = emojis.happyEmojis + emojis.sadEmojis + emojis.surprisedEmojs + emojis.angryEmojis
 			
@@ -279,7 +281,7 @@
 			  },  
 			  opacity: 0.5, 
 			  type: "histogram", 
-			  ybins: {
+			  xbins: {
 			  //   end: 2.8, 
 			    size: 0.06, 
 			  //   start: .5
@@ -299,7 +301,7 @@
 			  name: "experimental", 
 			  opacity: 0.75, 
 			  type: "histogram", 
-			  ybins: { 
+			  xbins: { 
 			    // end: 4, 
 			    size: 0.06, 
 			    // start: -3.2
