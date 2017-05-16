@@ -269,7 +269,7 @@
 			var trace1 = {
 			  y: allEmojis,
 			  // x: y1,
-			  name: 'control',
+			  name: 'all',
 			  autobinx: false, 
 			  histnorm: "count", 
 			  marker: {
@@ -298,7 +298,7 @@
 			            width: 1
 			    } 
 			       }, 
-			  name: "experimental", 
+			  name: "happy", 
 			  opacity: 0.75, 
 			  type: "histogram", 
 			  xbins: { 
@@ -318,7 +318,7 @@
 			            width: 1
 			    } 
 			       }, 
-			  name: "experimental", 
+			  name: "sad", 
 			  opacity: 0.75, 
 			  type: "histogram", 
 			  ybins: { 
@@ -338,7 +338,7 @@
 			            width: 1
 			    } 
 			       }, 
-			  name: "experimental", 
+			  name: "surprised", 
 			  opacity: 0.75, 
 			  type: "histogram", 
 			  ybins: { 
@@ -358,7 +358,7 @@
 			            width: 1
 			    } 
 			       }, 
-			  name: "experimental", 
+			  name: "angry", 
 			  opacity: 0.75, 
 			  type: "histogram", 
 			  ybins: { 
@@ -371,10 +371,10 @@
 			var layout = {
 			  bargap: 0.05, 
 			  bargroupgap: 0.2, 
-			  barmode: "overlay", 
-			  title: "Sampled Results", 
-			  xaxis: {title: "Value"}, 
-			  yaxis: {title: "Count"}
+			  barmode: "stack", 
+			  title: "Emojis vs Vertical Height", 
+			  xaxis: {title: "Count"}, 
+			  yaxis: {title: "Scroll Position"}
 			};
 			Plotly.newPlot('plot', data, layout);
 
