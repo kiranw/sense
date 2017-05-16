@@ -112,6 +112,14 @@ h1 {
 }
 
 
+.logo3 {
+	width:200px;
+	height: auto;
+	margin: 0 auto;
+	display: block;
+}
+
+
 .button2{
 	width:150px;
 	height:auto;
