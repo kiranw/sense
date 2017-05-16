@@ -244,4 +244,13 @@ img #emojiAnnotations{
 
 .modal {
 	font-family: 'Lato';
+	font-size: 1.2em;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+#most-common-label {
+	font-style: bold,underline;
 }

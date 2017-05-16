@@ -122,6 +122,11 @@
     </div>
     <div class="modal-body">
       <p>Here's a summary of the emotions we were able to detect on this page.</p>
+      <br>
+      Your most common emotional response was <img src='img/happy_emoji.png' id="most-common" class='emoji'><span id="most-common-label">happy</span>.
+      <br>
+      Your least common emotional response was <img src='img/sad_emoji.png' id="least-common" class='emoji'><span id="least-common-label">sad</span>.
+      <br>
       <div id="plot-container">
 	      <div id="plot1"></div>
 	      <div id="plot2"></div>
@@ -172,7 +177,7 @@
 
 
 		// Store coordinates of emojis displayed
-		var emojis = { "happyEmojis": [], "sadEmojis": [], "surprisedEmojis": [], "angryEmojis": []}
+		var emojis = { "happy": [], "sad": [], "surprised": [], "angry": []}
 
 		// Takes in the coordinates from WebGazer, adjusts them to be relative to viewports
 		// and screen position, and then add our value to the smoothing protocol
@@ -221,7 +226,7 @@
 													 "transform:translate3d(" + plotX + 
 													 "px," + plotY + "px,0)" + 
 													 "' class='emoji'></div>")	
-						emojis[emotion + "Emojis"].push(plotY);
+						emojis[emotion].push(plotY);
 						if (!force) {
 							lastPlottedX = plotX;
 							lastPlottedY = plotY;
@@ -264,11 +269,11 @@
 
 
 		function displayAnalysis(){
-			emojis = {"happyEmojis":[203.75,1074.85,389.15],"sadEmojis":[715.15],"surprisedEmojis":[280.35],"angryEmojis":[492.6,780.2,1317.75]}
+			emojis = {"happy":[203.75,1074.85,389.15],"sad":[715.15],"surprised":[280.35],"angry":[492.6,780.2,1317.75]}
 			// Histogram of all emojis
-			var allEmojis = emojis["happyEmojis"].concat(emojis["sadEmojis"])
-			allEmojis = allEmojis.concat(emojis["surprisedEmojs"])
-			allEmojis = allEmojis.concat(emojis["angryEmojis"])
+			var allEmojis = emojis["happy"].concat(emojis["sad"])
+			allEmojis = allEmojis.concat(emojis["surprised"])
+			allEmojis = allEmojis.concat(emojis["angry"])
 			
 			var trace1 = {
 			  y: allEmojis,
@@ -292,7 +297,7 @@
 			  }
 			};
 			var trace2 = {
-			  y: emojis["happyEmojis"],
+			  y: emojis["happy"],
 			  // x: y2, 
 			  autobinx: false, 
 			  marker: {
@@ -312,7 +317,7 @@
 			  }
 			};
 			var trace3 = {
-			  y: emojis["sadEmojis"],
+			  y: emojis["sad"],
 			  // x: y2, 
 			  autobinx: false, 
 			  marker: {
@@ -332,7 +337,7 @@
 			  }
 			};
 			var trace4 = {
-			  y: emojis["surprisedEmojis"],
+			  y: emojis["surprised"],
 			  // x: y2, 
 			  autobinx: false, 
 			  marker: {
@@ -352,7 +357,7 @@
 			  }
 			};
 			var trace5 = {
-			  y: emojis["angryEmojis"],
+			  y: emojis["angry"],
 			  // x: y2, 
 			  autobinx: false, 
 			  marker: {
@@ -393,12 +398,15 @@
 			};
 			Plotly.newPlot('plot2', data2, layout);
 
-
+			maxFreq = Object.keys(emojis).reduce(function(a, b){ return emojis[a].length > emojis[b].length ? a : b });
+			leastFreq = Object.keys(emojis).reduce(function(a, b){ return emojis[a].length < emojis[b].length ? a : b });
 			// Most common emotion measured:
-
+			document.getElementById("most-common").src = "img/" + mostFreq + ".png";
+			$("#most-common-label").text(mostFreq)
 
 			// Least common emotion measured:
-
+			document.getElementById("most-common").src = "img/" + leastFreq + ".png";
+			$("#least-common-label").text(leastFreq)
 		}
 
 
