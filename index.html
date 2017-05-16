@@ -238,15 +238,19 @@
 		// Keypress emoji to wherever gaze currently as an alternative input
 		document.body.onkeyup = function(e){
 		    if(e.keyCode == 41){  // ")"
+		    	console.log("force register");
 		    	registerEmotion("happy",true);
 		    }
 		    if(e.keyCode == 40){  // "("
+		    	console.log("force register");
 		    	registerEmotion("sad",true);
 			}
 		    if(e.keyCode == 79){ // "O"
+		    	console.log("force register");
 		    	registerEmotion("surprised",true);
 		    }
 		    if(e.keyCode == 60){ // "<"
+		    	console.log("force register");
 		    	registerEmotion("angry",true);
 		    }
 		}
@@ -259,14 +263,7 @@
 		function displayAnalysis(){
 			// Histogram of all emojis
 			allEmojis = emojis.happyEmojis + emojis.sadEmojis + emojis.surprisedEmojs + emojis.angryEmojis
-			for (var i = 1; i < 500; i++) 
-			{
-			  k = Math.random();
-			  // x1.push(k*5);
-			  // x2.push(k*10);
-			  y1.push(k);
-			  y2.push(k*2);
-			}
+			
 			var trace1 = {
 			  y: allEmojis,
 			  // x: y1,
