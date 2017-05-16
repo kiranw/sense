@@ -168,7 +168,7 @@ h1 {
 }
 
 #emoji {
-	width:150px;
+	width:50px;
 	margin: auto;
 	margin-top:10px;
 	margin-bottom:10px;
@@ -176,7 +176,7 @@ h1 {
 }
 
 .emotionScores{
-	font-size: 1.5em;
+	font-size: 0.8em;
 	left:50px;
 	display: block;
     margin-left: 80px;

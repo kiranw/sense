@@ -170,7 +170,7 @@
 
 
 		// Store coordinates of emojis displayed
-		var emojis = { happyEmojis: [], sadEmojis: [], surprisedEmojis: [], angryEmojis: []}
+		var emojis = { "happyEmojis": [], "sadEmojis": [], "surprisedEmojis": [], "angryEmojis": []}
 
 		// Takes in the coordinates from WebGazer, adjusts them to be relative to viewports
 		// and screen position, and then add our value to the smoothing protocol
@@ -264,7 +264,7 @@
 		function displayAnalysis(){
 			emojis = {"happyEmojis":[203.75,1074.85,389.15],"sadEmojis":[715.15],"surprisedEmojis":[280.35],"angryEmojis":[492.6,780.2,1317.75]}
 			// Histogram of all emojis
-			allEmojis = emojis["happyEmojis"] + emojis["sadEmojis"] + emojis["surprisedEmojs"] + emojis["angryEmojis"]
+			allEmojis = emojis["happyEmojis"].concat(emojis["sadEmojis"]).concat(emojis["surprisedEmojs"]).concat(emojis["angryEmojis"])
 			
 			var trace1 = {
 			  y: allEmojis,
@@ -367,7 +367,7 @@
 			    // start: -3.2
 			  }
 			};
-			var data = [trace1, trace2];
+			var data = [trace1, trace2, trace3, trace4, trace5];
 			var layout = {
 			  bargap: 0.05, 
 			  bargroupgap: 0.2, 
@@ -570,7 +570,7 @@
 					// a threshold cascade to see if the emotion is extreme enough to
 					// characterize with certainty, and then display
 					if (sad < 0.1){ // cascaded because both of these are less sensitive and need to be 				   boosted if they are expressed
-						if (angry > 0.4){
+						if (angry > 0.3){
 							maxEmotion = "angry";
 							registerEmotion(maxEmotion);
 							$(".emotionvalue").text(maxEmotion);
