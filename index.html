@@ -139,12 +139,41 @@
 </div>
 </div>
 
+
+
+
+
+<div class="modal fade in" id="introModal" role="dialog">
+<div class="modal-dialog">
+
+  <!-- Modal content-->
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h4 class="modal-title"><img src="img/logo.png" class="logo"/></h4>
+    </div>
+    <div class="modal-body">
+      <p>Welcome to Sense! Remember to calibrate the gaze tracking system by clicking at the corners and staring meaningfully at them. Go to each corner in any order you want, but visit each one non-consecutively at least twice.</p>
+      <br>
+      <p>In general, using your cursor will improve the accuracy of the gaze tracking since it's natural for you to use and it indicates where you're looking as its moving.</p>
+      <br>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+  
+</div>
+</div>
 	
 
 
 
 
 		<script>	
+
+		// Instructions
+		$('#introModal').modal('show');
 
 //===========================================================================
 //===========================================================================
