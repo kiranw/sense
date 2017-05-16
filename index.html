@@ -121,9 +121,11 @@
       <h4 class="modal-title"><img src="img/analysis.png" class="logo2"/></h4>
     </div>
     <div class="modal-body">
-      <p>Some text in the modal.</p>
-      <div id="plot" class="plot"></div>
-
+      <p>Here's a summary of the emotions we were able to detect on this page.</p>
+      <div id="plot-container">
+	      <div id="plot1"></div>
+	      <div id="plot2"></div>
+      </div>
     </div>
     <div class="modal-footer">
       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -367,16 +369,28 @@
 			    // start: -3.2
 			  }
 			};
-			var data = [trace1, trace2, trace3, trace4, trace5];
+			var data = [trace2, trace3, trace4, trace5];
 			var layout = {
 			  bargap: 0.05, 
 			  bargroupgap: 0.2, 
 			  barmode: "stack", 
-			  title: "Emojis vs Vertical Height", 
+			  title: "Mixed Emojis vs Vertical Height", 
 			  xaxis: {title: "Count"}, 
 			  yaxis: {title: "Scroll Position"}
 			};
 			Plotly.newPlot('plot', data, layout);
+
+			var data2 = [trace1];
+			var layout = {
+			  bargap: 0.05, 
+			  bargroupgap: 0.2, 
+			  barmode: "stack", 
+			  title: "All Emojis vs Vertical Height", 
+			  xaxis: {title: "Count"}, 
+			  yaxis: {title: "Scroll Position"}
+			};
+			Plotly.newPlot('plot', data2, layout);
+
 
 
 

@@ -1,7 +1,7 @@
 html, body {
 	margin: 0;
 	height: 100%;
-	font-family: 'Roboto', sans-serif;
+	font-family: 'Lato', sans-serif;
 	/*overflow: hidden;*/
 }
 
@@ -57,6 +57,8 @@ h1 {
 .btn {
 	font-family: 'Lato';
 	font-size: 16px;
+	background-color: #c6ced1;
+	font-style: bold;
 }
 
 #controls {
@@ -129,7 +131,7 @@ h1 {
 #descriptionBlurb {
 	text-align: center;
 	padding: 0px 20px;
-	font-family: "Roboto", sans-serif;
+	font-family: "Lato", sans-serif;
 }
 
 .emotionvalue {
@@ -163,7 +165,7 @@ h1 {
 	overflow: hidden;
 	right: 0px;
 	background-color: #f9f9f9;
-	font-family: "Roboto", sans-serif;;
+	font-family: "Lato", sans-serif;;
 /*    border-left: 2px solid #ededed;*/
 }
 
@@ -224,4 +226,8 @@ img #emojiAnnotations{
 #buttons {
 	text-align: center;
 	margin: 0 auto;
+}
+
+#plot-container {
+
 }
