@@ -219,14 +219,14 @@ img #emojiAnnotations{
 		
 
 #plot1 {
-	width:600px;
+	width: 500px;
 	height: 400px;
 	margin: 0 auto;
 	margin-bottom: 50px;
 }	  
 
 #plot2 {
-	width:600px;
+	width: 500px;
 	height: 400px;
 	margin: 0 auto;
 	margin-bottom: 50px;
@@ -240,4 +240,8 @@ img #emojiAnnotations{
 #plot-container {
 	display:block;
 
+}
+
+.modal {
+	font-family: 'Lato';
 }
