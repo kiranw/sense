@@ -264,7 +264,7 @@
 		function displayAnalysis(){
 			emojis = {"happyEmojis":[203.75,1074.85,389.15],"sadEmojis":[715.15],"surprisedEmojis":[280.35],"angryEmojis":[492.6,780.2,1317.75]}
 			// Histogram of all emojis
-			allEmojis = emojis.happyEmojis + emojis.sadEmojis + emojis.surprisedEmojs + emojis.angryEmojis
+			allEmojis = emojis["happyEmojis"] + emojis["sadEmojis"] + emojis["surprisedEmojs"] + emojis["angryEmojis"]
 			
 			var trace1 = {
 			  y: allEmojis,
@@ -288,7 +288,7 @@
 			  }
 			};
 			var trace2 = {
-			  y: emojis.happyEmojis,
+			  y: emojis["happyEmojis"],
 			  // x: y2, 
 			  autobinx: false, 
 			  marker: {
@@ -308,7 +308,7 @@
 			  }
 			};
 			var trace3 = {
-			  y: emojis.sadEmojis,
+			  y: emojis["sadEmojis"],
 			  // x: y2, 
 			  autobinx: false, 
 			  marker: {
@@ -328,7 +328,7 @@
 			  }
 			};
 			var trace4 = {
-			  y: emojis.surprisedEmojis,
+			  y: emojis["surprisedEmojis"],
 			  // x: y2, 
 			  autobinx: false, 
 			  marker: {
@@ -348,7 +348,7 @@
 			  }
 			};
 			var trace5 = {
-			  y: emojis.angryEmojis,
+			  y: emojis["angryEmojis"],
 			  // x: y2, 
 			  autobinx: false, 
 			  marker: {
